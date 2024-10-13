@@ -95,7 +95,13 @@ const Popup = () => {
       },
       response => {
         console.log('Response from backgroundf', response);
-        setLlmResponse(response.data.response);
+        if (response && response.data) {
+          const data = JSON.parse(response.data);
+          setLlmResponse(data.message);
+        } else {
+          console.error('Unexpected response format:', response);
+          setLlmResponse('Error: Unexpected response format');
+        }
       },
     );
     return { code: codeText, result: resultText };
@@ -113,15 +119,16 @@ const Popup = () => {
   const [llmResponse, setLlmResponse] = useState('');
 
   return (
-    <div className={`App ${isLight ? 'bg-slate-50' : 'bg-gray-800'}`}>
+    <div className={`App bg-[#636E60] bg-opacity-[87%] text-white rounded-2xl overflow-scroll`}>
       <h1 className="text-2xl font-semibold italic">pickle.ai</h1>
       <img width={32} height={32} alt="as" src="/image-2.png" className="mx-auto" />
+      <p className="text-sm">Great job! Wanna learn how to optimize your code further?</p>
       <button
         className="rounded-lg border-2 border-green-400 bg-green-400 px-2 transition-all duration-300 ease-in-out hover:border-green-700 hover:bg-green-600"
         onClick={fetchUserCode}>
-        Analyze User Code
+        Yes
       </button>
-      {llmResponse && <pre className="text-xs">{llmResponse}</pre>}
+      {llmResponse && <div className="text-xs text-wrap max-w-full overflow-scroll">{llmResponse}</div>}
       {/* <header className={`App-header ${isLight ? 'text-gray-900' : 'text-gray-100'}`}> */}
       {/* <button onClick={goGithubSite}>
           <img src={chrome.runtime.getURL(logo)} className="App-logo" alt="logo" />

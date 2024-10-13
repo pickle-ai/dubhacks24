@@ -14,8 +14,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === 'user-code') {
     console.log('User code received in background script', request);
     sendMessageToBackend(request).then(response => {
-      console.log('Response from backend', response);
-      sendResponse(response);
+      console.log('Response from backend, sending back to popup', response);
+      sendResponse({ data: response });
     });
     // return true because we want to send response asynchronously
     return true;
@@ -47,15 +47,23 @@ const mockLLMResponse = {
 
 async function sendMessageToBackend(payload: unknown) {
   console.log('Sending message to backend', payload);
-  // const flaskRequest = await fetch('http://localhost:8000/', {
-  //   method: 'GET',
-  //   body: JSON.stringify(message),
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  // });
-  // const flaskResponse = await flaskRequest.text();
-  const flaskResponse = mockLLMResponse;
-  // console.log('Response from backend', flaskResponse);
-  return flaskResponse;
+  try {
+    const flaskRequest = await fetch('http://127.0.0.1:5000/improve', {
+      method: 'POST',
+      body: JSON.stringify({
+        users_code: payload.code,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const flaskResponse = await flaskRequest.text();
+    console.log('Response from backend flak response', flaskResponse);
+    // const flaskResponse = flask;
+    // console.log('Response from backend', flaskResponse);
+    return flaskResponse;
+  } catch (error) {
+    console.error('Error sending message to backend', error);
+    return 'Error: ' + error;
+  }
 }
