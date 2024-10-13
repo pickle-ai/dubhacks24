@@ -14,7 +14,7 @@ export default function Home() {
         <p>Personalized feedback on your code solutions!</p>
         <p>{' '}</p>
         <LoginButton></LoginButton>
-        <Link href="/">Home</Link>
+        <Link href="/workspace">My Workspace</Link>
         {/* <Button className='bg-green-950 hover:bg-slate-500'>Log in</Button> <Button className='bg-green-950 hover:bg-slate-500'>Sign up</Button> */}
       </div>
     </>
