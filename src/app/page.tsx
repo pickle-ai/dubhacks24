@@ -1,6 +1,7 @@
 // Home page component
 import React from 'react';
-import LoginButton from '@/components/login'
+import LoginButton from '@/components/login';
+import Link from 'next/link';
 
 export default function Home() {
 
@@ -13,6 +14,7 @@ export default function Home() {
         <p>Personalized feedback on your code solutions!</p>
         <p>{' '}</p>
         <LoginButton></LoginButton>
+        <Link href="/">Home</Link>
         {/* <Button className='bg-green-950 hover:bg-slate-500'>Log in</Button> <Button className='bg-green-950 hover:bg-slate-500'>Sign up</Button> */}
       </div>
     </>
