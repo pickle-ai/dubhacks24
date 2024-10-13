@@ -1,16 +1,19 @@
 // Home page component
-import { Button } from "@/components/ui/button";
+import React from 'react';
+import LoginButton from '@/components/login'
 
 export default function Home() {
+
   return (
     <>
-      <div className="font-mono text-center">
-        <h1 className="text-center align-middle text-6xl font-extrabold text-green-500">
+      <div className="font-mono text-center bg-emerald-700 h-screen border-black">
+        <h1 className="text-center align-middle text-6xl font-extrabold">
           Pickle AI
         </h1>
         <p>Personalized feedback on your code solutions!</p>
-        <p className="text-center">Get Started:</p>
-        <Button>Log in</Button> <Button>Sign up</Button>
+        <p>{' '}</p>
+        <LoginButton></LoginButton>
+        {/* <Button className='bg-green-950 hover:bg-slate-500'>Log in</Button> <Button className='bg-green-950 hover:bg-slate-500'>Sign up</Button> */}
       </div>
     </>
   );
